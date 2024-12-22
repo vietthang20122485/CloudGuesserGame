@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Leaderboard</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Add this in the head section for Font Awesome icons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" th:href="${@cdnUrl + '/css/styles.css'}">
+</head>
+<body class="bg-light">
+	<div class="container">
+		<div class="leaderboard">
+			<div class="d-flex align-items-center mb-4">
+                <a href="/" title="Home" class="me-3" style="font-size: 1.5rem; color: inherit; text-decoration: none;">
+                    <i class="fas fa-home"></i>
+                </a>
+                <h1 class="text-center flex-grow-1 mb-0">Leaderboard</h1>
+            </div>
+
+			<div th:each="entry, iterStat : ${leaderboardEntries}"
+				th:with="actualPosition=${iterStat.index + (currentPage * pageSize)}"
+				th:class="${actualPosition < 3} ? 'leaderboard-entry top-3 rank-' + ${actualPosition + 1} : 'leaderboard-entry'"
+				th:style="'animation-delay: ' + ${iterStat.index * 0.1} + 's'">
+
+				<div class="rank">
+					<!-- Medal for top 3 -->
+					<span th:if="${actualPosition == 0}" class="medal"
+						style="color: #ffd700;"> <i class="fas fa-medal"></i>
+					</span> <span th:if="${actualPosition == 1}" class="medal"
+						style="color: #c0c0c0;"> <i class="fas fa-medal"></i>
+					</span> <span th:if="${actualPosition == 2}" class="medal"
+						style="color: #cd7f32;"> <i class="fas fa-medal"></i>
+					</span>
+					<!-- Rank number -->
+					<span th:text="${actualPosition + 1}"></span>
+				</div>
+
+				<div class="name" th:text="${entry.playerName}"></div>
+
+				<div class="time">
+					<i class="far fa-clock"></i> <span th:text="${entry.timeToFinish}"></span>
+				</div>
+			</div>
+
+
+			<!-- Pagination -->
+			<nav aria-label="Leaderboard pagination">
+				<ul class="pagination">
+					<!-- First Page -->
+					<li class="page-item"
+						th:classappend="${currentPage == 0} ? 'disabled'"><a
+						class="page-link"
+						th:href="@{/leaderboard(page=0,size=${pageSize})}">&laquo;</a></li>
+
+					<!-- Previous Page -->
+					<li class="page-item"
+						th:classappend="${currentPage == 0} ? 'disabled'"><a
+						class="page-link"
+						th:href="@{/leaderboard(page=${currentPage - 1},size=${pageSize})}"
+						th:if="${currentPage > 0}">Previous</a></li>
+
+					<!-- Page Numbers -->
+					<li class="page-item"
+						th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+						th:classappend="${pageNum == currentPage} ? 'active'"><a
+						class="page-link"
+						th:href="@{/leaderboard(page=${pageNum},size=${pageSize})}"
+						th:text="${pageNum + 1}"></a></li>
+
+					<!-- Next Page -->
+					<li class="page-item"
+						th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+						<a class="page-link"
+						th:href="@{/leaderboard(page=${currentPage + 1},size=${pageSize})}"
+						th:if="${currentPage + 1 < totalPages}">Next</a>
+					</li>
+
+					<!-- Last Page -->
+					<li class="page-item"
+						th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+						<a class="page-link"
+						th:href="@{/leaderboard(page=${totalPages - 1},size=${pageSize})}">&raquo;</a>
+					</li>
+				</ul>
+			</nav>
+
+			<!-- Page Info -->
+			<div class="page-info">Page [[${currentPage + 1}]] of
+				[[${totalPages}]]</div>
+		</div>
+	</div>
+</body>
+</html>

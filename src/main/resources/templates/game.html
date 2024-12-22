@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<title>Amazon Web Services Game</title>
+<link rel="stylesheet" th:href="${@cdnUrl + '/css/styles.css'}">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+	<div class="user-info">
+		<!-- Display the current logged-in user -->
+		<span th:text="'Hello, ' + ${#authentication.name}"></span>
+		<!-- Log out button -->
+		<form action="/logout" method="post">
+			<button class="logout-button" type="submit">Log Out</button>
+		</form>
+	</div>
+
+
+	<div class="game-container">
+		<div class="leaderboard-icon">
+			<h1>Cloud Guesser</h1>
+			<a href="/leaderboard" title="View Leaderboard"> <img
+				th:src="${@cdnUrl + '/img/ranking.png'}" alt="Leaderboard"
+				style="width: 48px; height: 48px;">
+			</a>
+			<form id="guess_form">
+				<!-- Top half with 3 empty slots -->
+				<div class="upper-section">
+					<div class="empty-slot" data-ref="" id="guess1"></div>
+					<div class="empty-slot" data-ref="" id="guess2"></div>
+					<div class="empty-slot" data-ref="" id="guess3"></div>
+				</div>
+
+				<!-- Bottom half with rectangles to drag -->
+				<div class="lower-section">
+					<div class="row">
+						<div class="service-rectangle"
+							th:each="service, iterStat : ${services}" th:text="${service}"
+							th:if="${iterStat.index < 5}"
+							th:id="'service-' + ${iterStat.index}"></div>
+					</div>
+					<div class="row">
+						<div class="service-rectangle"
+							th:each="service, iterStat : ${services}" th:text="${service}"
+							th:if="${iterStat.index >= 5}"
+							th:id="'service-' + ${iterStat.index}"></div>
+					</div>
+					<div class="row">
+						<div class="button-container">
+							<button id="check-button">Check</button>
+							<button id="restart-button">Restart</button>
+						</div>
+					</div>
+					<div class="row">
+						<div id="result"></div>
+						<audio id="winSound" th:src="${@cdnUrl + '/sound/goodresult.mp3'}"></audio>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+	<script th:src="${@cdnUrl + '/js/game.js'}"></script>
+
+</body>
+</html>

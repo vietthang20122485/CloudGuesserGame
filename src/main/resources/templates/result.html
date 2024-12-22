@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Game Result</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Game Result</h1>
+        <div th:if="${success}">
+            <p>Congratulations! You guessed correctly.</p>
+            <p>Attempts: <span th:text="${attempts}"></span></p>
+            <p>Time taken: <span th:text="${time}"></span> seconds</p>
+        </div>
+        <div th:if="${!success}">
+            <p>Incorrect guess. Try again!</p>
+        </div>
+        <p>Correct Services: <span th:text="${correctServices}"></span></p>
+        <p>Your Guesses: <span th:text="${playerGuesses}"></span></p>
+        <a href="/" th:href="@{/}">Play Again</a>
+    </div>
+</body>
+</html>

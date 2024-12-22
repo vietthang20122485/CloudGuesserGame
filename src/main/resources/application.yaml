@@ -1,0 +1,29 @@
+aws:
+   dynamodb:
+       endpoint: dynamodb.ap-southeast-1.amazonaws.com
+cdn:
+  url: https://d2os1nnpogmgkr.cloudfront.net/static
+spring:
+  redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+  security:
+      oauth2:
+          client:
+              registration:
+                  cognito:
+                      client-id: ${COGNITO_CLIENT_ID}
+                      client-secret: ${COGNITO_CLIENT_SECRET}
+                      scope:
+                      - email
+                      - openid
+                      - phone
+                      # Spring Security by default uses a redirect-uri in the format: {baseUrl}/login/oauth2/code/{registrationId}
+                      # For example: http://localhost:8080/login/oauth2/code/cognito
+                      # See more: https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html#oauth2login-sample-redirect-uri
+                      redirect-uri: ${COGNITO_REDIRECT_URI}
+              provider:
+                  cognito:
+                      issuerUri: https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_Mzuti9Jg5
+                      user-name-attribute: username
+

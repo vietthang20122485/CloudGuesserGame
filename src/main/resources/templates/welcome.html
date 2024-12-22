@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the AWS Guessing Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .instructions {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Align text to the left */
+        }
+
+        .instructions h3 {
+            font-size: 1.7rem;
+            color: #2e8b57;
+            margin-bottom: 10px;
+        }
+
+        .start-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+
+        .start-button:hover {
+            background-color: #0056b3;
+        }
+
+        .game-info {
+            background-color: #fff8e1;
+            color: #333;
+            border: 1px solid #f1c40f;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .game-info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .instructions h3 {
+                font-size: 1.5rem;
+            }
+
+            .start-button {
+                padding: 10px 20px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the AWS Cloud Guesser Game!</h1>
+        <p>Are you ready to test your knowledge of Amazon Web Services? In this game, you will have to guess the correct AWS services selected by the game. Let's get started!</p>
+
+        <div class="instructions">
+            <h3>How to Play:</h3>
+            <p>1. The game randomly selects 3 AWS services from a list of 10 generated services. Your goal is to identify and place the 3 correct services in the designated spots.</p>
+            <p>2. At the top of screen, there are 3 empty rectangles, which are placeholders for the selected services.</p>
+            <p>3. At the bottom of the screen, you will see 10 rectangles, each containing an AWS service.</p>
+            <p>4. Your task is to choose which services you think are the correct ones then drag and drop the AWS services from the bottom rectangles into the 3 empty rectangles at the top.</p>
+            <p>5. After placing your guesses, press the "Check" button to verify if your guesses are correct.</p>
+            <p>6. If your guess is correct, the game will display the number of attempts and the time taken to complete the game.</p>
+            <p>7. You can view the leader board by clicking the leader board icon.</p>
+            <p>8. Click the "Restart" button to start a new game.</p>
+        </div>
+
+        <button class="start-button" onclick="startGame()">Start Game</button>
+
+        <div class="game-info">
+            <p><strong>Tip:</strong> Pay attention to the details and try to make your guesses quickly!</p>
+        </div>
+    </div>
+
+    <script>
+        function startGame() {
+            // Redirect to Cognito authorization page
+            window.location.href = '/oauth2/authorization/cognito';  // Redirect URL as per your request
+        }
+    </script>
+</body>
+</html>
